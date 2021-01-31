@@ -68,8 +68,7 @@ public class Gun : MonoBehaviour
         // Play sound
         audioManager.PlayGunLoad();
         yield return new WaitForSeconds(reloadTime);
-        // Animation
-        animator.Play("cylinder rotate");
+        // Reload Animation
         currentAmmo = maxAmmo;
         audioManager.PlayGunHammer();
         Debug.Log("Reloading...Done");
@@ -99,6 +98,9 @@ public class Gun : MonoBehaviour
             {
                 hit.rigidbody.AddForce(-hit.normal * impactForce);
             }
+
+            // Animation
+            animator.Play("cylinder rotate");
 
             currentAmmo--;
 
