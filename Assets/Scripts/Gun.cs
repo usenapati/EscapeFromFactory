@@ -13,6 +13,8 @@ public class Gun : MonoBehaviour
     // Could add magazine
     public float reloadTime = 1f;
     private bool isReloading = false;
+    public int id;
+    public bool equipped = false;
 
     public Camera fpsCamera;
     public ParticleSystem muzzleFlash;
@@ -62,6 +64,7 @@ public class Gun : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
         // Animation
         currentAmmo = maxAmmo;
+        Debug.Log("Reloading...Done");
         isReloading = false;
     }
 
@@ -75,7 +78,7 @@ public class Gun : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
 
             Target target = hit.transform.GetComponent<Target>();
             if (target != null)
