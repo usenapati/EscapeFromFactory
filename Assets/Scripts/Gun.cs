@@ -23,6 +23,7 @@ public class Gun : MonoBehaviour
     private float nextTimeToFire = 0f;
 
     public Animator animator;
+    public AudioManager audioManager;
 
     void Start()
     {
@@ -40,6 +41,10 @@ public class Gun : MonoBehaviour
     {
         if (isReloading)
         {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                audioManager.PlayGunTrigger();
+            }
             return;
         }
 
@@ -60,10 +65,12 @@ public class Gun : MonoBehaviour
     {
         isReloading = true;
         Debug.Log("Reloading...");
-
+        // Play sound
+        audioManager.PlayGunLoad();
         yield return new WaitForSeconds(reloadTime);
         // Animation
         currentAmmo = maxAmmo;
+        audioManager.PlayGunHammer();
         Debug.Log("Reloading...Done");
         isReloading = false;
     }
@@ -74,6 +81,7 @@ public class Gun : MonoBehaviour
         muzzleFlash.Play();
 
         // Play sound
+        audioManager.PlayGunShot();
 
         RaycastHit hit;
         if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
