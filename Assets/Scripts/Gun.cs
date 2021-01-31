@@ -33,7 +33,7 @@ public class Gun : MonoBehaviour
     void OnEnable()
     {
         isReloading = false;
-        //animator.SetBool("Reloading", false);
+        animator.SetBool("Reloading", false);
     }
 
     // Update is called once per frame
@@ -69,6 +69,7 @@ public class Gun : MonoBehaviour
         audioManager.PlayGunLoad();
         yield return new WaitForSeconds(reloadTime);
         // Animation
+        animator.Play("cylinder rotate");
         currentAmmo = maxAmmo;
         audioManager.PlayGunHammer();
         Debug.Log("Reloading...Done");
